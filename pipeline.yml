@@ -1,0 +1,23 @@
+pool:
+  name: batch11
+steps:
+- task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTask@5
+  displayName: 'Terraform : init'
+  inputs:
+    backendServiceArm: 'ars_devops'
+    backendAzureRmResourceGroupName: tfrg
+    backendAzureRmStorageAccountName: storagears123
+    backendAzureRmContainerName: containertask
+    backendAzureRmKey: agw.terraform.tfstate
+
+- task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTask@5
+  displayName: 'Terraform : plan'
+  inputs:
+    command: plan
+    environmentServiceNameAzureRM: 'ars_devops'
+
+- task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTask@5
+  displayName: 'Terraform : apply'
+  inputs:
+    command: apply
+    environmentServiceNameAzureRM: 'ars_devops'
